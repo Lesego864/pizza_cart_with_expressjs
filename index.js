@@ -69,7 +69,7 @@ app.post('/cart', function (req, res) {
 });
 
 app.post('/checkout', function (req, res) {
-    // req.session.checkOut = 'hidden';
+    req.session.checkOut = 'hidden';
     req.session.payOut = ' ';
 
 
@@ -77,34 +77,30 @@ app.post('/checkout', function (req, res) {
 });
 
 app.post('/pay', function (req, res) {
-    req.session.calChange = cart.calChange(req.body.payAmt);
+    req.session.calculateChange = cart.calculateChange(req.body.payAmt);
     req.session.getChange = cart.getChange();
 
     if (req.session.getChange < 0) {
-        // req.session.payOut = ' ';
-        // req.session.messageHide = ' ';
-        req.session.messageContent = "Sorry - That was not enough money!";
-    } else if (req.session.getChange > 0) {
-        // req.session.checkOut = 'hidden';
-        // req.session.messageHide = ' ';
-        req.session.messageContent = "Enjoy your Pizza!";
-    } else if (req.session.getChange == 0) {
-        req.session.messageContent = "Enjoy your Pizza, here is your change R" + req.session.getChange;
+        req.session.payOut = ' ';
+        req.session.messageHide = ' ';
+    } else {
+        req.session.checkOut = 'hidden';
+        req.session.messageHide = ' ';
     }
 
-    // if (req.session.getChange == 0) {
-    //     req.session.messageContent = "Enjoy your Pizza!";
-    // } else if (req.session.getChange > 0) {
-    //     req.session.messageContent = "Enjoy your Pizza, here is your change R" + req.session.getChange;
-    // } else if (req.session.getChange < 0) {
-    //     req.session.messageContent = "Sorry - That was not enough money!";
-    // }
+    if (req.session.getChange == 0) {
+        req.session.messageContent = "Enjoy your Pizza!";
+    } else if (req.session.getChange > 0) {
+        req.session.messageContent = "Enjoy your Pizza, here is your change R" + req.session.getChange;
+    } else if (req.session.getChange < 0) {
+        req.session.messageContent = "Sorry, that is not enough money!";
+    }
 
-    // if (req.session.getChange >= 0) {
-    //     req.session.messageClass = 'rgba(120, 255, 120, 0.95)';
-    // } else if (req.session.getChange < 0) {
-    //     req.session.messageClass = 'rgba(255, 120, 120, 0.95)';
-    // }
+    if (req.session.getChange >= 0) {
+        req.session.messageClass = 'rgba(120, 255, 120, 0.95)';
+    } else if (req.session.getChange < 0) {
+        req.session.messageClass = 'rgba(255, 120, 120, 0.95)';
+    }
 
     res.redirect('/');
 });

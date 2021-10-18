@@ -1,4 +1,22 @@
+{{!-- <div class="message {{#if messageHide}}{{messageHide}}{{else}}hidden{{/if}}" style="position: fixed; 
+    z-index: 1;
+    left: 0;
+    top: 0;
+    text-align: center;
+    font-size: 20pt;
+    font-weight: bold;
+    height: 100%;
+    width: 100%;
+    vertical-align: 50%;
+    padding-top: 20%;
+    background-color: {{messageClass}}">
+    <form action="/close" method="POST">
+        <span class="message">{{messageContent}}</span>
+        <br>
 
+        <button class="close" name="close" on type="submit">&times;</button>
+    </form>
+</div> --}}
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -21,39 +39,45 @@
                         </tr>
                         <tr>
                             <td class="item">Small Pizza</td>
-                            <td><button class="pBtn small" name="size" value="smallAdd" on type="submit">+</button>
+                            <td><button class="aBtn small" name="size" value="smallAddButton" on
+                                    type="submit">+</button>
                             </td>
-                            <td><button class="mBtn small" name="size" value="smallMin" on type="submit">-</button>
+                            <td><button class="mBtn small" name="size" value="smallMinButton" on
+                                    type="submit">-</button>
                             </td>
-                            <td class="smallPizzaQty item">{{#if qty}}{{qty.smallQty}}{{else}} {{/if}}</td>
+                            <td class="smallPizzaQty item">{{#if qty}}{{qty.Q1}}{{else}} {{/if}}</td>
                             <td class="item"><span class="smallPizzaTotal">{{#if
-                                    price}}{{price.smallCost}}{{else}}{{/if}}</span></td>
+                                    price}}{{price.smallPizzaTotal}}{{else}}{{/if}}</span></td>
                         </tr>
 
                         <tr>
                             <td class="item">Medium Pizza</td>
-                            <td><button class="pBtn med" name="size" value="medAdd" on type="submit">+</button></td>
-                            <td><button class="mBtn med" name="size" value="medMin" on type="submit">-</button></td>
-                            <td class="medPizzaQty item">{{#if qty}}{{qty.medQty}}{{else}} {{/if}}</td>
+                            <td><button class="aBtn med" name="size" value="mediumAddButton" on type="submit">+</button>
+                            </td>
+                            <td><button class="mBtn med" name="size" value="mediumMinButton" on type="submit">-</button>
+                            </td>
+                            <td class="medPizzaQty item">{{#if qty}}{{qty.Q2}}{{else}} {{/if}}</td>
                             <td class="item"><span class="medPizzaTotal">{{#if
-                                    price}}{{price.medCost}}{{else}}{{/if}}</span></td>
+                                    price}}{{price.mediumPizzaTotal}}{{else}}{{/if}}</span></td>
                         </tr>
 
                         <tr>
                             <td class="item">Large Pizza</td>
-                            <td><button class="pBtn large" name="size" value="largeAdd" on type="submit">+</button>
+                            <td><button class="aBtn large" name="size" value="largeAddButton" on
+                                    type="submit">+</button>
                             </td>
-                            <td><button class="mBtn large" name="size" value="largeMin" on type="submit">-</button>
+                            <td><button class="mBtn large" name="size" value="largeMinButton" on
+                                    type="submit">-</button>
                             </td>
-                            <td class="largePizzaQty item">{{#if qty}}{{qty.largeQty}}{{else}} {{/if}}</td>
+                            <td class="largePizzaQty item">{{#if qty}}{{qty.Q3}}{{else}} {{/if}}</td>
                             <td class="item"><span class="largePizzaTotal">{{#if
-                                    price}}{{price.largeCost}}{{else}}{{/if}}</span></td>
+                                    price}}{{price.largePizzaTotal}}{{else}}{{/if}}</span></td>
                         </tr>
 
                         <tr>
                             <td colspan="4" class="item">TOTAL COST</td>
                             <td class="item"><span class="cartTotal">{{#if
-                                    price}}{{price.totalCart}}{{else}}{{/if}}</span></td>
+                                    price}}{{price.totalCost}}{{else}}{{/if}}</span></td>
                         </tr>
                 </form>
                 <tr>
@@ -70,7 +94,8 @@
                     <form action="/pay" method="POST">
                         <table class="cartTable">
                             <tr>
-                                <td class="pAmt hide">Payment Amount (R):<input class="payAmt" type="text" name="payAmt" value="{{payAmt}}">
+                                <td class="pAmt">Payment Amount (R):<input class="payAmt" type="text" name="payAmt"
+                                        value="{{payAmt}}">
                                 </td>
                             </tr>
                             <tr>
@@ -79,9 +104,14 @@
                             </tr>
                         </table>
                     </form>
+                    <div class="payOut {{#if messageHide}}{{messageHide}}{{else}}hidden{{/if}}">
+                        <form action="/pay" method="POST">
+                            <span class="message">{{messageContent}}</span>
+                            <br>
+                    </div>
                 </div>
 
-                <div class="message hide"></div>
+
             </div>
         </div>
     </div>
